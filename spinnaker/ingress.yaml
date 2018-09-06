@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: spinnaker
+  namespace: kube-system
+  annotations:
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  rules:
+  - host: k8s.bb-app.cn
+    http:
+      paths:
+      - backend:
+          serviceName: spin-deck
+          servicePort: 9000
+      - backend:
+          serviceName: spinnaker-gate
+          servicePort: 8084
+  tls:
+  - secretName: k8s.bb-app.cn-tls
+    hosts:
+    - k8s.bb-app.cn

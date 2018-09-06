@@ -1,0 +1,41 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: spinnaker-redis-pv-volume
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/spinnaker/redis
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: spinnaker-minio-pv-volume
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/spinnaker/minio
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: spinnaker-jenkins-pv-volume
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/spinnaker/jenkins

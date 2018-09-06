@@ -1,0 +1,19 @@
+kind: Certificate
+apiVersion: certmanager.k8s.io/v1alpha1
+metadata:
+  name: docker.bb-app.cn
+  namespace: kube-system
+spec:
+  secretName: docker.bb-app.cn-tls
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+  commonName: docker.bb-app.cn
+  dnsNames:
+  - docker.bb-app.cn
+  acme:
+    config:
+    - http01:
+        ingress: letsencrypt-docker.bb-app.cn
+      domains:
+      - docker.bb-app.cn

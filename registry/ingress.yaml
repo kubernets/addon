@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: docker-registry-ingress
+  namespace: kube-system
+spec:
+  rules:
+  - host: docker.bb-app.cn
+    http:
+      paths:
+      - backend:
+          serviceName: docker-registry-docker-registry
+          servicePort: registry
+  tls:
+  - secretName: docker.bb-app.cn-tls
+    hosts:
+    - docker.bb-app.cn
+    

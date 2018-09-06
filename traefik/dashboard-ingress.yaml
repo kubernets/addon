@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: traefik-dashboard
+  namespace: kube-system
+  annotations:
+    traefik.frontend.rule.type: PathPrefixStrip
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  rules:
+  - host: k8s.bb-app.cn
+    http:
+      paths:
+      - path: /traefik
+        backend:
+          serviceName: traefik-dashboard
+          servicePort: 80
+  tls:
+  - secretName: k8s.bb-app.cn-tls
+    hosts:
+    - k8s.bb-app.cn

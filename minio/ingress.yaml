@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: minio
+  namespace: kube-system
+  annotations:
+    traefik.frontend.rule.type: PathPrefix
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  rules:
+  - host: k8s.bb-app.cn
+    http:
+      paths:
+      - path: /minio
+        backend:
+          serviceName: minio-service
+          servicePort: 9000
+  tls:
+  - secretName: k8s.bb-app.cn-tls
+    hosts:
+    - k8s.bb-app.cn

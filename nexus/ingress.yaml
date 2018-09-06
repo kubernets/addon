@@ -1,0 +1,41 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: sonatype-nexus-ingress
+  namespace: kube-system
+  annotations:
+    traefik.frontend.rule.type: PathPrefix
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  rules:
+  - host: k8s.bb-app.cn
+    http:
+      paths:
+      - path: /nexus
+        backend:
+          serviceName: sonatype-nexus-service
+          servicePort: nexus
+  tls:
+  - secretName: k8s.bb-app.cn-tls
+    hosts:
+    - k8s.bb-app.cn
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: docker-registry-ingress
+  namespace: kube-system
+  annotations:
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  rules:
+  - host: docker.bb-app.cn
+    http:
+      paths:
+      - backend:
+          serviceName: sonatype-nexus-service
+          servicePort: docker
+  tls:
+  - secretName: docker.bb-app.cn-tls
+    hosts:
+    - docker.bb-app.cn

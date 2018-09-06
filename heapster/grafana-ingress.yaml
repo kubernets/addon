@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: grafana
+  namespace: kube-system
+  annotations:
+    traefik.frontend.rule.type: PathPrefixStrip
+spec:
+  rules:
+  - host: k8s.bb-app.cn
+    http:
+      paths:
+      - path: /grafana
+        backend:
+          serviceName: monitoring-grafana
+          servicePort: 80
+  # tls:
+  # - secretName: k8s.bb-app.cn-tls
+  #   hosts:
+  #   - k8s.bb-app.cn
