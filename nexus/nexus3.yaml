@@ -58,6 +58,9 @@ spec:
         - containerPort: 5000
           protocol: TCP
           name: docker
+        - containerPort: 5001
+          protocol: TCP
+          name: docker-hosted
         readinessProbe:
           failureThreshold: 6
           httpGet:
@@ -91,5 +94,8 @@ spec:
   - port: 5000
     protocol: TCP
     name: docker
+  - port: 5001
+    protocol: TCP
+    name: docker-hosted
   selector:
     app: sonatype-nexus
